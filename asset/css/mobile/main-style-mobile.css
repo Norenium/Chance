@@ -27,7 +27,8 @@
             font-weight: 300;
             padding-left: 2vw;
             padding-right: 2vw;
-            font-size: 18px;
+            font-size: 3.7vw;
+            width: 24%;
 
       }
 
@@ -49,7 +50,7 @@
             color: white;
             font-weight: 200;
             margin-left: 2vw;
-            font-size: 24px;
+            font-size: 3.7vw;
             
       }
 
@@ -108,7 +109,7 @@
 
       .header-logo {
             font-family: 'Tourney', cursive;
-            font-size: 12vh;
+            font-size: 14vw;
             padding-top: 1vh;
             padding-left: 3vh;
             /* margin: 1vh; */
