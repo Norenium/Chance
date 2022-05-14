@@ -1,3 +1,45 @@
+.btn-exciting{
+      border: #F31DE9 6px solid;
+      /* box-shadow:  0px 0px 25px  white inset; */
+      box-shadow:  0px 0px 25px  white , 0px 0px 15px  white inset;
+      text-shadow:  2px 2px 15px  rgb(240, 226, 237);
+      /* box-shadow: 5px 10px #888888; */
+      width:  280px;
+      /* padding: 3vw; */
+      /* background-color: #F31DE9; */
+      color: rgb(255, 255, 255);
+      text-decoration: none;
+      border-radius: 13vw;
+      /* border: 4px rgba(255, 255, 255, 0.22) solid; */
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      padding-left: 4vw;
+      padding-right: 4vw;
+      padding-top: 2vw;
+      padding-bottom: 2vw;
+      font-size: 2.4vw;
+}
+
+.pragraph-exciting{
+      font-family: 'Roboto', sans-serif;
+      font-family: 'Roboto', sans-serif;
+      background-color: rgba(177, 7, 126, 0.25);
+      padding: 2vw;
+      border-radius: 0.6vw;
+      margin-bottom: 4vh;
+      text-align: center;
+} 
+
+.pragraph-exciting h2{
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 4vw;
+      font-weight: 100;
+      margin: 1%;
+}
+
+/*  Layout Classess  */ 
+
+
 .logos {
       width: 100%;
       display: inline;
