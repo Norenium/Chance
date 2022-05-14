@@ -1,0 +1,92 @@
+@media (max-width: 981px) {
+      .header {
+            font-family: 'Tourney', cursive;
+            font-size: 20vw;
+            margin: 4vw;
+            text-shadow: -6px -6px 4px rgb(243, 129, 237);
+      }
+
+      .sub-heaader {
+            font-family: 'Changa', sans-serif;
+            font-size: 10vw;
+            margin: auto;
+            margin-top: 12vw;
+            margin-bottom: 20vw;
+            margin-top: 4vw;
+            border-bottom: none;
+            align-content: center;
+            text-align: center;
+      }
+      .step h2 {
+            border: none;
+            padding-top: 20px;
+            margin-top: 0px;
+            margin-left: 2vw;
+            margin-right: 2vw;
+            font-weight: bolder;
+            font-size: 5vw;
+            text-shadow: 1vw 1vw 2vw white , -2px -2px 2vw white;
+      }
+
+      .step {
+            font-family: 'Jura', sans-serif !important;
+            font-weight: bold;
+            display:inline;
+            margin-top: 150px !important;
+
+      }
+
+      .right-tab {
+            border-top: 4px solid rgb(135, 135, 145);
+            margin-left: 22vw;
+            margin-bottom: 20vw;
+            margin-top: -20vw;
+            width: 70vw;
+            font-size: 4vw;
+
+      }
+
+      .left-tab {
+            border-top: 4px solid rgb(135, 135, 145);
+            margin-right: 22vw;
+            margin-bottom: 20vw;
+            margin-top: -20vw;
+            margin-left: 0;
+            width: 70vw;
+            font-size: 4vw;
+
+      }
+
+
+      .quarter {
+            border: 6px solid rgb(243, 129, 237);
+            border-radius: 50%;
+            height: 80%;
+            width: 80%;
+            text-align: center;
+            line-height: 13vw;
+            margin: auto;
+            /* margin-top: ; */
+            font-size: 7vw;
+            font-weight: bolder;
+            color: rgb(247, 185, 238);
+
+      }
+      .quarter-even{
+            margin-right: 5px;
+            margin-left: auto !important;
+
+      }
+
+      .quarter-border {
+            margin-left: 5px;
+            padding: 3px;
+            border: 6px solid rgb(135, 135, 145);
+            border-radius: 50%;
+            width: 18vw;
+            height: 18vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+      }
+}
