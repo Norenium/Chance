@@ -1,21 +1,35 @@
-.header-note-mobile{
+.logos {
+      width: 100%;
+      display: inline;
+}
+
+.logo-temp {
+      width: 24%;
+}
+
+
+
+.header-note-mobile {
       display: none;
 }
+
 .footer {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       font-weight: lighter;
       text-align: center;
 }
-.footer span{
+
+.footer span {
       font-family: 'Jura', sans-serif;
       color: rgb(243, 129, 237);
       text-decoration: underline;
       font-weight: bold;
 }
 
-#date{
+#date {
       display: none;
 }
+
 .btn-primary {
       background-color: #F31DE9;
       color: white;
@@ -29,12 +43,14 @@
       font-size: 1.8vw;
 
 }
-.btn-primary:hover{
+
+.btn-primary:hover {
       background-color: #a5079d;
       cursor: pointer;
       /* border: 4px rgba(255, 255, 255, 0.66) solid; */
 
 }
+
 .input {
       border: 4px #F31DE9 solid;
       height: 3.4vw;
