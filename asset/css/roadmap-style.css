@@ -1,0 +1,68 @@
+
+.sub-heaader {
+      font-family: 'Changa', sans-serif;
+      font-size: 60px;
+      margin: 70px;
+      border-bottom: 2px white solid;
+      align-content: center;
+      text-align: center;
+}
+
+.go-right {
+      float: right;
+}
+
+.list-item-sub {
+      color: rgb(243, 129, 237);
+      margin-left: 15%;
+      margin-top: 5%;
+}
+
+.step {
+      font-family: 'Jura', sans-serif !important;
+      font-weight: bold;
+      margin-bottom: 50px;
+}
+
+.left-tab {
+      margin-right: 60%;
+      margin-top: -70px;
+      margin-left: 10%;
+      width: 30%;
+}
+
+.right-tab {
+      margin-left: 60%;
+      margin-top: -70px;
+      margin-right: 10%;
+      width: 30%;
+}
+
+.step h2 {
+      border-top: 4px solid rgb(135, 135, 145);
+      padding-top: 20px;
+      margin-top: 0px;
+      font-weight: 700;
+}
+
+.quarter {
+      border: 4px solid rgb(243, 129, 237);
+      border-radius: 50%;
+      height: 100px;
+      width: 100px;
+      text-align: center;
+      line-height: 100px;
+      margin: auto;
+      font-size: xx-large;
+      font-weight: bolder;
+      color: rgb(247, 185, 238);
+}
+
+.quarter-border {
+      margin: auto;
+      padding: 5px;
+      border: 6px solid rgb(135, 135, 145);
+      border-radius: 50%;
+      height: 110px;
+      width: 110px;
+}
