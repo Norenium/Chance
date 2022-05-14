@@ -1,0 +1,35 @@
+.card-left{
+      width: 22%;
+}
+
+.card-logo{
+      /* border: 4px solid green; */
+}
+.bucket-card p {
+      font-weight: 500;
+}
+.discription{
+      font-weight: 100;
+      float: right;
+}
+.card-description{
+      width: 60%;
+      margin-bottom: 4rem;
+}
+.bucket-card .btn-exciting{
+      margin: 5rem;
+      margin-top: 30px;
+}
+.bucket-card{
+      margin: 2%;
+      /* width: 80% ; */
+
+      font-family: 'Roboto', sans-serif;
+      font-size: 3vw;
+      font-weight: 200;
+      background-color: rgba(255, 255, 255, 0.22);
+      padding: 2vw;
+      border-radius: 0.6vw;
+
+      /* display: inline; */
+}
