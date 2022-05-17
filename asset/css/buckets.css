@@ -1,6 +1,8 @@
-
-.lock{
+#contract-address{
+      word-wrap: break-word;
+      max-width: 400px;
 }
+ 
 #comingsoon-overlay{
       position: absolute;
       width: 100%;
@@ -60,10 +62,12 @@
       margin-bottom: 4rem;
 }
 
-
+.btn-exciting:hover{
+      cursor: pointer;
+}
 
 .bucket-card .btn-exciting {
-      margin: 5rem;
+      margin: auto;
       margin-top: 30px;
 }
 

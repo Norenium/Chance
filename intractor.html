@@ -66,13 +66,9 @@
       })
 
       StartContract();
-      const contractAddress = "0xA3dfa5c32c64aFeFF7c7AC5bF07f9AeFB37cb6a2";
 
       async function StartContract() {
-
             console.log('Start Contract');
-
-
             // Step 1: get connect to metamask
             checkForMetamask().then(step1 => {
                   if (step1) {

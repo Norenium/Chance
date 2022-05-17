@@ -51,12 +51,13 @@
                               <img src="asset/images/Logos/bnb.png" alt="BNB" class="card-logo">
                         </div>
                         <div class="card-description">
-                              <p>Prize: <span class="discription">1 BNB</span></p>
-                              <p>Ticket price: <span class="discription">0.05 BNB</span></p>
-                              <p>Max ticket per address: <span class="discription">3</span></p>
+                              <p>Prize: <span class="discription"><span id="prize-amount">--</span>   BNB</span> </p>
+                              <p>Time left: <span class="discription"><span id="time-left">-- --:--:--</span> </span> </p>
+                              <!-- <p>Ticket price: <span class="discription">0.05 BNB</span></p>
+                              <p>Max ticket per address: <span class="discription">3</span></p> -->
                         </div>
                         <div class="center">
-                              <a href="./buckets.html" class="btn-exciting">Chip in</a>
+                              <a   class="btn-exciting" id="chip-in">Chip in with <span class="" id="ticket-price"> -- </span> BNB</a>
                         </div>
                         <br>
                         <br>
@@ -86,9 +87,32 @@
                         </div>
                   </div>
 
+                  
+                  <div class="bucket-card">
+                        <h4>Admin survilance.</h4><p style="color: red;">This section will be removed later.</p>
+                        <div class="card-description">
+                              <p>Is bucket ready: <span class="discription" id="bucket-ready"> -- </span> </p>
+                              <p>Is Bucket full: <span class="discription" id="bucket-full"> -- </span> </p>
+                              <p>Ticket price: <span class="discription"><span  id="ticket-price-2"> -- </span> BNB</span></p>
+                              <p>Number of sold tickets: <span class="discription" id="latest-position"> -- </span> </p>
+                              <p>Contract Balance:  </p>
+                              <p> <span class="discription"><span  id="contract-balance"> -- </span> BNB</span></p>
+                              <br>
+                              <p>Contract Address: </p>
+                              <p> <span class="discription"><div  id="contract-address"> -- </div> </span></p>
+                        </div>
+                        <div class="center">
+                              <a   class="btn-exciting" id="spin">Spin!<span class="discription" id="ticket-price"> </span> </a>
+                        </div>
+                        <br>
+                        <br>
+                  </div>
             </div>
       </div>
 
 
 
 </body>
+<script type="text/javascript" src="./asset/js/node_modules/ethers/dist/ethers.umd.min.js"></script>
+<script type="text/javascript" src="asset/js/local/const.js"  ></script>
+<script type="text/javascript" src="asset/js/local/interact.js"  ></script>
