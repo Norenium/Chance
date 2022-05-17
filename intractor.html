@@ -1,0 +1,455 @@
+<head>
+      <!--#region FAVICON-->
+      <link rel="apple-touch-icon" sizes="180x180" href="asset/favicon/apple-touch-icon.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="asset/favicon/favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="asset/favicon/favicon-16x16.png">
+      <link rel="manifest" href="asset/favicon/site.webmanifest">
+      <!-- #endregion -->
+</head>
+
+<style>
+      #buy {
+            padding: 20px;
+            background-color: rgb(14, 136, 14);
+            border: 4px solid rgb(2, 63, 2);
+            border-radius: 8px;
+            color: rgb(206, 241, 168);
+            font-size: larger;
+            font-weight: 700;
+      }
+      #buy:hover{
+            cursor: pointer;
+      }
+</style>
+
+<body>
+      <h1>All the operation is on testNET</h1>
+      <h2>Prize Amount: <span id="prize-amount">--</span></h2>
+      <h2>Treasury Balance: <span id="treasury-balance">--</span></h2>
+      <h2>Ticket Price: <span id="ticket-price">--</span></h2>
+      <h2>Is Bucket Ready: <span id="bucket-ready">--</span></h2>
+      <h2>Is Bucket Full: <span id="bucket-full">--</span></h2>
+      <input type="number" name="value" id="input">
+      <button id="send" >send</button><br><br>
+      <button id="buy">Buy a ticket for <span id="ticket-price-2">--</span> BNB</button>
+</body>
+
+
+
+<script type="text/javascript" src="./asset/js/node_modules/ethers/dist/ethers.umd.min.js"></script>
+<script>
+
+      document.getElementById("send").addEventListener("click", function () {
+            var value = document.getElementById('input').value;
+            // window.alert('input value is: ' + value);
+            setfoo(value);
+      })
+
+
+      document.getElementById("buy").addEventListener("click", function () {
+
+            if (TicketPrice == 0) {
+                  console.log('isBucketReady:  ' + isBucketReady)
+                  if (isBucketReady != true) {
+                        window.alert('There is no running lottery bucket now.')
+                  } else {
+                        window.alert('Ticket Price is not valid.\n Please refresh the page and' +
+                              ' try again.')
+                  }
+            } else {
+                  var val = ethers.utils.parseEther(TicketPrice.toString());
+                  console.log('val: '+val);
+                  console.log('TicketPrice: '+TicketPrice);
+                  myContract.chipIn({ value: val});
+            }
+
+      })
+
+      StartContract();
+      const contractAddress = "0xA3dfa5c32c64aFeFF7c7AC5bF07f9AeFB37cb6a2";
+
+      async function StartContract() {
+
+            console.log('Start Contract');
+
+
+            // Step 1: get connect to metamask
+            checkForMetamask().then(step1 => {
+                  if (step1) {
+                        // step 2: init contract
+                        tryInitContract().then(step2 => {
+                              getContractBalance();
+                              getPrize();
+                              getTicketPrice();
+                              return Promise.resolve(true);
+                        })
+                  }
+            })
+      }
+
+      function setfoo(val) {
+            myContract.chipIn({ value: ethers.utils.parseEther(val) });
+      }
+
+      var prize = 0;
+      var treasuryBalance = 0;
+      var TicketPrice = 0;
+      function writePrize(pr) {
+            document.getElementById('prize-amount').innerHTML = pr;
+            prize = pr;
+      }
+      function writeTreasuryBalance(pr) {
+
+            document.getElementById('treasury-balance').innerHTML = pr;
+            treasuryBalance = pr;
+      }
+      function writeTicketPrice(pr) {
+            document.getElementById('ticket-price').innerHTML = pr;
+            document.getElementById('ticket-price-2').innerHTML = pr;
+            TicketPrice = pr;
+      }
+      var isBucketReady = false;
+
+      function writeBucketReady(pr) {
+            document.getElementById('bucket-ready').innerHTML = pr;
+            isBucketReady = pr;
+            // TicketPrice = pr;
+      }
+      function writeBucketFull(pr) {
+            document.getElementById('bucket-full').innerHTML = pr;
+            // TicketPrice = pr;
+      }
+
+      function getPrize() {
+            myContract.getPrizeAmount().then(function (value) {
+
+                  writePrize((BigInt(value._hex).toString()) / 100000000);
+            });
+      }
+
+      function getContractBalance() {
+            myContract.getContractBalance().then(function (value) {
+
+                  writeTreasuryBalance(normalize(BigInt(value._hex).toString()));
+            });
+      }
+
+      function getTicketPrice() {
+            myContract.getTicketPrice().then(function (value) {
+
+                  writeTicketPrice((BigInt(value._hex).toString()) / 100000000);
+            });
+            myContract.getBucketReady().then(function (value) {
+
+                  writeBucketReady(value.toString());
+            });
+            myContract.getBucketFull().then(function (value) {
+
+                  writeBucketFull(value.toString());
+            });
+
+
+      }
+
+
+      function normalize(inp) {
+            return inp / Math.pow(10, 18);
+      }
+      //#region         step 1: check for metamask
+      var provider;
+      var signer;
+      var hasMetamask = false;
+      async function checkForMetamask() {
+
+            if (window.ethereum === undefined) {
+                  sendAlert('You need to install MetaMask Extention.')
+                  return Promise.resolve(false);
+
+            } else {
+                  hasMetamask = true;
+                  provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+                  await provider.send("eth_requestAccounts", []).then(() => {
+                        signer = provider.getSigner();
+                  });
+                  console.log('step 1 done.')
+                  return Promise.resolve(true);
+            }
+      }
+
+      function sendAlert(msg) {
+            setTimeout(() => {
+                  window.alert(msg);
+            }, 1000)
+      }
+
+      //#endregion 
+
+
+      //#region         step 2: init Contract
+
+      var myContract;
+      var isContractInit = false;
+
+      function tryInitContract() {
+            try {
+                  myContract = new ethers.Contract(contractAddress, ABI, signer);
+                  isContractInit = true;
+                  console.log('step 2 - contract init done.');
+                  return Promise.resolve(true);
+            } catch (error) {
+                  return Promise.resolve(false);
+            }
+      }
+
+      //#endregion
+
+      const ABI =
+            [
+                  {
+                        "inputs": [],
+                        "stateMutability": "nonpayable",
+                        "type": "constructor"
+                  },
+                  {
+                        "anonymous": false,
+                        "inputs": [
+                              {
+                                    "indexed": true,
+                                    "internalType": "address",
+                                    "name": "from",
+                                    "type": "address"
+                              },
+                              {
+                                    "indexed": true,
+                                    "internalType": "address",
+                                    "name": "to",
+                                    "type": "address"
+                              },
+                              {
+                                    "indexed": false,
+                                    "internalType": "uint256",
+                                    "name": "value",
+                                    "type": "uint256"
+                              }
+                        ],
+                        "name": "Transfer",
+                        "type": "event"
+                  },
+                  {
+                        "inputs": [],
+                        "name": "chipIn",
+                        "outputs": [],
+                        "stateMutability": "payable",
+                        "type": "function"
+                  },
+                  {
+                        "inputs": [],
+                        "name": "clear",
+                        "outputs": [],
+                        "stateMutability": "nonpayable",
+                        "type": "function"
+                  },
+                  {
+                        "inputs": [],
+                        "name": "faucet",
+                        "outputs": [],
+                        "stateMutability": "nonpayable",
+                        "type": "function"
+                  },
+                  {
+                        "inputs": [],
+                        "name": "getAddressTicketsCount",
+                        "outputs": [
+                              {
+                                    "internalType": "uint256",
+                                    "name": "",
+                                    "type": "uint256"
+                              }
+                        ],
+                        "stateMutability": "view",
+                        "type": "function"
+                  },
+                  {
+                        "inputs": [],
+                        "name": "getBucketFull",
+                        "outputs": [
+                              {
+                                    "internalType": "bool",
+                                    "name": "",
+                                    "type": "bool"
+                              }
+                        ],
+                        "stateMutability": "view",
+                        "type": "function"
+                  },
+                  {
+                        "inputs": [],
+                        "name": "getBucketReady",
+                        "outputs": [
+                              {
+                                    "internalType": "bool",
+                                    "name": "",
+                                    "type": "bool"
+                              }
+                        ],
+                        "stateMutability": "view",
+                        "type": "function"
+                  },
+                  {
+                        "inputs": [],
+                        "name": "getContractBalance",
+                        "outputs": [
+                              {
+                                    "internalType": "uint256",
+                                    "name": "",
+                                    "type": "uint256"
+                              }
+                        ],
+                        "stateMutability": "view",
+                        "type": "function"
+                  },
+                  {
+                        "inputs": [],
+                        "name": "getCurrentBlockTimestamp",
+                        "outputs": [
+                              {
+                                    "internalType": "uint256",
+                                    "name": "",
+                                    "type": "uint256"
+                              }
+                        ],
+                        "stateMutability": "view",
+                        "type": "function"
+                  },
+                  {
+                        "inputs": [],
+                        "name": "getEndPoint",
+                        "outputs": [
+                              {
+                                    "internalType": "uint256",
+                                    "name": "",
+                                    "type": "uint256"
+                              }
+                        ],
+                        "stateMutability": "view",
+                        "type": "function"
+                  },
+                  {
+                        "inputs": [],
+                        "name": "getLatestPosition",
+                        "outputs": [
+                              {
+                                    "internalType": "uint256",
+                                    "name": "",
+                                    "type": "uint256"
+                              }
+                        ],
+                        "stateMutability": "view",
+                        "type": "function"
+                  },
+                  {
+                        "inputs": [
+                              {
+                                    "internalType": "uint256",
+                                    "name": "position",
+                                    "type": "uint256"
+                              }
+                        ],
+                        "name": "getPositionAddress",
+                        "outputs": [
+                              {
+                                    "internalType": "address",
+                                    "name": "",
+                                    "type": "address"
+                              }
+                        ],
+                        "stateMutability": "view",
+                        "type": "function"
+                  },
+                  {
+                        "inputs": [],
+                        "name": "getPrizeAmount",
+                        "outputs": [
+                              {
+                                    "internalType": "uint256",
+                                    "name": "",
+                                    "type": "uint256"
+                              }
+                        ],
+                        "stateMutability": "view",
+                        "type": "function"
+                  },
+                  {
+                        "inputs": [],
+                        "name": "getSelfAddress",
+                        "outputs": [
+                              {
+                                    "internalType": "address",
+                                    "name": "",
+                                    "type": "address"
+                              }
+                        ],
+                        "stateMutability": "view",
+                        "type": "function"
+                  },
+                  {
+                        "inputs": [],
+                        "name": "getStartPoint",
+                        "outputs": [
+                              {
+                                    "internalType": "uint256",
+                                    "name": "",
+                                    "type": "uint256"
+                              }
+                        ],
+                        "stateMutability": "view",
+                        "type": "function"
+                  },
+                  {
+                        "inputs": [],
+                        "name": "getTicketPrice",
+                        "outputs": [
+                              {
+                                    "internalType": "uint256",
+                                    "name": "",
+                                    "type": "uint256"
+                              }
+                        ],
+                        "stateMutability": "view",
+                        "type": "function"
+                  },
+                  {
+                        "inputs": [
+                              {
+                                    "internalType": "uint256",
+                                    "name": "prizeAmount",
+                                    "type": "uint256"
+                              },
+                              {
+                                    "internalType": "uint256",
+                                    "name": "numberOfTickets",
+                                    "type": "uint256"
+                              },
+                              {
+                                    "internalType": "uint256",
+                                    "name": "profitByPrize",
+                                    "type": "uint256"
+                              },
+                              {
+                                    "internalType": "uint256",
+                                    "name": "startSteps",
+                                    "type": "uint256"
+                              },
+                              {
+                                    "internalType": "uint256",
+                                    "name": "durationSteps",
+                                    "type": "uint256"
+                              }
+                        ],
+                        "name": "setBucket",
+                        "outputs": [],
+                        "stateMutability": "nonpayable",
+                        "type": "function"
+                  }
+            ];
+</script>

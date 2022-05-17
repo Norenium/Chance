@@ -1,3 +1,7 @@
+.center {
+      text-align: center;
+}
+
 .exciting-div{
       margin: 10vh;
 }
@@ -183,7 +187,10 @@
 .main-container::-webkit-scrollbar {
       display: none;
 }
-
+.header a{
+      text-decoration: none;
+      color: inherit;
+}
 .header {
       height: 15vh;
       overflow-x: hidden;
